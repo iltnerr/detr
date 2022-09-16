@@ -1,0 +1,25 @@
+meal table
+python main.py --img 000000113589.jpg --refpoints 645 717 600 400 220 300 220 900
+
+dining table
+python main.py --img 000000528399.jpg --refpoints 98 269 45 478 600 410 300 600
+
+pizza on dining table
+python main.py --img 000000351331.jpg --refpoints 50 100 450 1020 250 300 400 750
+
+giraffe
+python main.py --img 000000248810.jpg
+
+living room: person, couch, tv
+python main.py --img 000000463618.jpg
+
+
+
+
+------BSDS
+
+giraffes
+python main.py --dataset bsds --img 253055.jpg
+
+camel and person
+python main.py --dataset bsds --img 299086.jpg --refpoints 262 429 362 930 400 430 252 870
