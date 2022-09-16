@@ -3,4 +3,4 @@
 See https://github.com/facebookresearch/detr
 
 ## IMPORTANT NOTES
-The paths for the pretrained weights are hard-coded into main.py.
+The paths for the pretrained weights are hard-coded into main.py and should be adapted.
