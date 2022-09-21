@@ -48,9 +48,13 @@ my_parser.add_argument('--refpoints', default=None, nargs="+", type=int,
                        help='Reference Points (y,x) to investigate attention weights. Point coordinates have to be supplied by multiple integers (e.g. "21 20 300 301" for two points (21, 20) and (300, 301)')
 args = my_parser.parse_args()
 
-# dataset paths
+# paths
 ds_paths = {"coco": "/scratch-local/cdtemp/richard/datasets/coco2017/val2017/",
             "bsds": "/scratch-local/cdtemp/richard/datasets/bsds500/val/",
+            }
+
+cp_paths = {"detr_resnet101": "/scratch-local/cdtemp/richard/coding/model-checkpoints/detr/detr-r101-2c7b67e5.pth",
+            "detr_resnet101_panoptic": "/scratch-local/cdtemp/richard/coding/model-checkpoints/detr/detr-r101-panoptic-40021d53.pth"
             }
 
 # COCO classes ('N/A'-classes represent discrepancies between coco 2014 and 2017)
@@ -94,9 +98,9 @@ def main():
     print("----------------------------\n\n")
 
     # load pre-trained models from checkpoint files
-    det_model = detr_resnet101(pretrained=True, checkpoints_path = "/scratch-local/cdtemp/richard/coding/model-checkpoints/detr/detr-r101-2c7b67e5.pth")
+    det_model = detr_resnet101(pretrained=True, checkpoints_path = cp_paths["detr_resnet101"])
     seg_model, postprocessor = detr_resnet101_panoptic(pretrained=True, return_postprocessor=True, num_classes=250, threshold=args.conf_threshold,
-                                                       checkpoints_path = "/scratch-local/cdtemp/richard/coding/model-checkpoints/detr/detr-r101-panoptic-40021d53.pth")
+                                                       checkpoints_path = cp_paths["detr_resnet101_panoptic"])
     # get image
     im = Image.open(ds_paths[args.dataset] + IMAGE)
 
