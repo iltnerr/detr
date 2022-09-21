@@ -19,7 +19,7 @@ python main.py --img 000000463618.jpg
 ------BSDS
 
 giraffes
-python main.py --dataset bsds --img 253055.jpg
+python main.py --dataset bsds --img 253055.jpg --refpoints 540 320 510 270 200 250 530 500 
 
 camel and person
 python main.py --dataset bsds --img 299086.jpg --refpoints 262 429 362 930 400 430 252 870
