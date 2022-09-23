@@ -28,6 +28,7 @@ Model weights and datasets are not part of this repo and can be downloaded manua
 
 ## Example 2 (BSDS)
 `python main.py --dataset bsds --img 37073.jpg --refpoints 590 915 400 340 170 270 100 700`
+
 ![input](example/ex2/input.jpg)
 
 ![output](example/ex2/output.png)
