@@ -13,6 +13,9 @@ python main.py --img 000000248810.jpg
 living room: person, couch, tv
 python main.py --img 000000463618.jpg
 
+kid birthday table
+python main.py --img 000000117425.jpg --refpoints 625 265 300 900 200 650 447 209
+
 
 
 

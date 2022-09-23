@@ -1,17 +1,19 @@
-import matplotlib.pyplot as plt
-import seaborn as sns
 import argparse
-import numpy
-import math
-import random
 import io
 import itertools
-import cv2
-import scipy
+import math
+import random
 
-from blend_modes import *
 from PIL import Image
+from blend_modes import *
 from blend_modes.blending_functions import overlay
+import cv2
+import numpy
+import scipy
+from torch.nn import functional as F
+
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 # colors for visualization
@@ -19,7 +21,7 @@ COLORS = [[0.000, 0.447, 0.741], [0.850, 0.325, 0.098], [0.929, 0.694, 0.125],
         [0.494, 0.184, 0.556], [0.466, 0.674, 0.188], [0.301, 0.745, 0.933]]
 
 
-def new_plot_dec_attn_weights(dec_attn_weights, h, w, im, bboxes_scaled, keep, probas, CLASSES):
+def plot_dec_attn_weights_overlay(dec_attn_weights, h, w, im, bboxes_scaled, keep, probas, CLASSES):
 
     wtitle = "visualize decoder attention weights"
     fig, ax = plt.subplots(num=wtitle, figsize=(22, 7))
@@ -58,19 +60,17 @@ def new_plot_dec_attn_weights(dec_attn_weights, h, w, im, bboxes_scaled, keep, p
 
 def blend_img_and_weights(attn_weights_hw, im, color=[255, 0, 0, 255]):
 
-    im_rgb = im.convert("RGB")
+    DEBUG = False
 
-    # numpy arrays
-    attn_weights_np = attn_weights_hw.cpu().detach().numpy()
-    im_np = numpy.asarray(im_rgb)
+    im_np = numpy.asarray(im.convert("RGB"))
 
     # resize attention weights to image size and normalize to [0, 255] values
-    attn_weights_np = cv2.resize(attn_weights_np, dsize=(im_np.shape[1], im_np.shape[0]), interpolation=cv2.INTER_CUBIC)
+    attn_weights_np = F.interpolate(attn_weights_hw.unsqueeze(0).unsqueeze(0), size=im_np.shape[:2], mode='bilinear', align_corners=False).squeeze().cpu().detach().numpy()
     attn_weights_np = numpy.uint8(numpy.interp(attn_weights_np, (attn_weights_np.min(), attn_weights_np.max()), (0, 255)))
 
     # cv2 images
     weights = cv2.cvtColor(attn_weights_np, cv2.COLOR_RGB2BGRA)
-    input_image = cv2.cvtColor(numpy.array(im_rgb), cv2.COLOR_RGB2BGRA)
+    input_image = cv2.cvtColor(im_np, cv2.COLOR_RGB2BGRA)
 
     # using CV2 and blend_modes package
     input_float = input_image.astype(float)
@@ -81,10 +81,7 @@ def blend_img_and_weights(attn_weights_hw, im, color=[255, 0, 0, 255]):
     color[0], color[2] = color[2], color[0] # rgba to bgra
     color_image[:,:] = color # bgra
     color_image_float = color_image.astype(float)
-    weights_colored_float = multiply(weights_float, color_image_float, opacity=1)
-
-    # strenghten visualization of weights
-    weights_colored_float = overlay(weights_colored_float, weights_colored_float, opacity=1)
+    weights_colored_float = overlay(weights_float, color_image_float, opacity=1)
 
     # blend colored weights onto input image
     blended_img_float = addition(input_float, weights_colored_float, opacity=1)
@@ -94,23 +91,13 @@ def blend_img_and_weights(attn_weights_hw, im, color=[255, 0, 0, 255]):
     input_image = input_float.astype(numpy.uint8)
     weights_colored = weights_colored_float.astype(numpy.uint8)
 
-    # Display images for debugging only!
-    #mask_vis = numpy.zeros([weights.shape[0], weights.shape[1]], dtype=numpy.uint8)
-    #mask_vis[mask] = 255
-
-    """
-    cv2.imshow("input image", input_image)
-    cv2.imshow("attention weights upscale", attn_weights_np)
-    #cv2.imshow("color", color_image)
-    #cv2.imshow("attention weights greyscale", weights_grey)
-    cv2.imshow("colored weights", weights_colored)
-    #cv2.imshow("mask", mask_vis)
-    #cv2.imshow("alpha", alpha)
-    #cv2.imshow("maximum weights", weights_maxima)
-    cv2.imshow('weights on input', blended_img)
-    cv2.waitKey()  # Press a key to close window with the image.
-    cv2.destroyAllWindows()
-    """
+    if DEBUG:
+        cv2.imshow("input image", input_image)
+        cv2.imshow("attention weights upscale", attn_weights_np)
+        cv2.imshow("colored weights", weights_colored)
+        cv2.imshow('weights on input', blended_img)
+        cv2.waitKey()  # Press a key to close window with the image.
+        cv2.destroyAllWindows()
 
     return cv2.cvtColor(blended_img, cv2.COLOR_BGR2RGB)
 

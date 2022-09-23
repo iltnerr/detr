@@ -168,7 +168,7 @@ def main():
         print("Reshaped self-attention:", sattn.shape)
 
     plot_results(im, probas[keep], bboxes_scaled, IM_NAME, args, CLASSES)
-    new_plot_dec_attn_weights(dec_attn_weights, h, w, im, bboxes_scaled, keep, probas, CLASSES)
+    plot_dec_attn_weights_overlay(dec_attn_weights, h, w, im, bboxes_scaled, keep, probas, CLASSES)
     plot_dec_attn_weights(bboxes_scaled, keep, dec_attn_weights, h, w, im, probas, IM_NAME, args, CLASSES)
     plot_enc_attn_weights(sattn, im, img, IM_NAME, args)
 
