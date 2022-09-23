@@ -26,7 +26,8 @@ Model weights and datasets are not part of this repo and can be downloaded manua
 ### Panoptic Segmentation
 ![panoptic-segmentation](example/ex1/panoptic-segmentation.png)
 
-## Example 2 (Mobile Phone)
+## Example 2 (BSDS)
+`python main.py --dataset bsds --img 37073.jpg --refpoints 590 915 400 340 170 270 100 700`
 ![input](example/ex2/input.jpg)
 
 ![output](example/ex2/output.png)
@@ -38,3 +39,17 @@ Model weights and datasets are not part of this repo and can be downloaded manua
 ![bbox-attention-maps-for-object-masks](example/ex2/bbox-attention-maps-for-object-masks.png)
 
 ![panoptic-segmentation](example/ex2/panoptic-segmentation.png)
+
+## Example 3 (Mobile Phone)
+![input](example/ex3/input.jpg)
+
+![output](example/ex3/output.png)
+
+![decoder-attention-raw](example/ex3/decoder-attention-raw.png)
+
+![encoder-attention-refpoints](example/ex3/encoder-attention-refpoints.png)
+
+![bbox-attention-maps-for-object-masks](example/ex3/bbox-attention-maps-for-object-masks.png)
+
+![panoptic-segmentation](example/ex3/panoptic-segmentation.png)
+
