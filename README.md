@@ -2,7 +2,8 @@
 See https://github.com/facebookresearch/detr
 
 ## Important Notes
-The paths for the trained weights and datasets are hard-coded into main.py and should be adapted.
+**The paths for the trained weights and datasets are hard-coded into main.py and should be adapted.  
+Model weights and datasets are not part of this repo and can be downloaded manually.**
 
 ## Example 1 (COCO)
 `python main.py --img 000000117425.jpg --refpoints 625 265 300 900 200 650 447 209`
