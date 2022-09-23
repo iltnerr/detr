@@ -5,9 +5,8 @@ See https://github.com/facebookresearch/detr
 The paths for the trained weights and datasets are hard-coded into main.py and should be adapted.
 
 ## Example 1 (COCO)
-```
-python main.py --img 000000117425.jpg --refpoints 625 265 300 900 200 650 447 209
-```
+`python main.py --img 000000117425.jpg --refpoints 625 265 300 900 200 650 447 209`
+
 ### Input Image
 ![input](example/ex1/input.jpg)
 
@@ -25,7 +24,7 @@ python main.py --img 000000117425.jpg --refpoints 625 265 300 900 200 650 447 20
 
 ### Panoptic Segmentation
 ![panoptic-segmentation](example/ex1/panoptic-segmentation.png)
----
+
 ## Example 2 (Mobile Phone)
 ![input](example/ex2/input.jpg)
 
