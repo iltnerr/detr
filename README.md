@@ -1,4 +1,4 @@
-# DETR: Object Detection &amp; Segmentation with DEtection TRansformer (DETR)
+# DETR: Object Detection &amp; Segmentation with DEtection TRansformer
 See https://github.com/facebookresearch/detr
 
 ## Important Notes
