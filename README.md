@@ -1,5 +1,5 @@
 # DETR: Object Detection &amp; Segmentation with DEtection TRansformer
-See https://github.com/facebookresearch/detr
+https://github.com/facebookresearch/detr
 
 ## Important Notes
 **The paths for the trained weights and datasets are hard-coded into main.py and should be adapted.  
